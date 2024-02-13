@@ -2,11 +2,6 @@ import { Button, Col, Input, Row, Select, Tag, Form, Space } from 'antd'
 import Todo from '../Todo'
 import { TodoType, priorityType } from 'src/types'
 
-type FieldType = {
-  text: string
-  priority: priorityType
-}
-
 interface TodoListProps {
   todoList: TodoType[]
   addTodo: (v: TodoType) => void
@@ -16,11 +11,11 @@ interface TodoListProps {
 
 const TodoList = ({ todoList, addTodo, deleteTodo, updateTodo }: TodoListProps) => {
   const [form] = Form.useForm()
-  const handleAddTodo = (values: FieldType) => {
-    if (values.text) {
+  const handleAddTodo = (values: Pick<TodoType, 'name' | 'priority'>) => {
+    if (values.name) {
       const newTodo: TodoType = {
         id: new Date().toISOString(),
-        name: values.text,
+        name: values.name,
         completed: false,
         priority: values.priority
       }
@@ -45,10 +40,10 @@ const TodoList = ({ todoList, addTodo, deleteTodo, updateTodo }: TodoListProps) 
             className='flex w-full'
             initialValues={{ priority: priorityType.Medium }}
           >
-            <Form.Item<FieldType> name='text' className='w-full'>
+            <Form.Item name='name' className='w-full'>
               <Input />
             </Form.Item>
-            <Form.Item<FieldType> name='priority'>
+            <Form.Item name='priority'>
               <Select>
                 <Select.Option value={priorityType.High} label={priorityType.High}>
                   <Tag color='red'>{priorityType.High}</Tag>
