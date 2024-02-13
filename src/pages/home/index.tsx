@@ -1,10 +1,22 @@
 import { Typography, Divider } from 'antd'
+import { useEffect, useState } from 'react'
 import Filters from 'src/components/Filters'
 import TodoList from 'src/components/TodoList'
+import { TodoType } from 'src/types'
 
 const { Title } = Typography
 
 const Home = () => {
+  const [todoList, setTodoList] = useState<TodoType[]>(JSON.parse(localStorage.getItem('todoList') as string) || [])
+
+  useEffect(() => {
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+  }, [todoList])
+
+  const addTodo = (newTodo: TodoType) => {
+    setTodoList([...todoList, newTodo])
+  }
+
   return (
     <div
       style={{
@@ -19,10 +31,10 @@ const Home = () => {
         height: '90vh'
       }}
     >
-      <Title style={{ textAlign: 'center' }}>TODO LIST</Title>
+      <Title className='text-center'>TODO LIST</Title>
       <Filters />
       <Divider />
-      <TodoList />
+      <TodoList todoList={todoList} addTodo={addTodo} />
     </div>
   )
 }
