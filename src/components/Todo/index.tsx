@@ -1,5 +1,4 @@
 import { Checkbox, Row, Space } from 'antd'
-import { useState } from 'react'
 import { TodoType } from 'src/types'
 const priorityColorMapping: Record<string, string> = {
   High: 'red',
@@ -10,17 +9,24 @@ const priorityColorMapping: Record<string, string> = {
 interface TodoProps {
   todo: TodoType
   deleteTodo: (id: string) => void
+  updateTodo: (todo: TodoType) => void
 }
 
-const Todo = ({ todo, deleteTodo }: TodoProps) => {
-  const [checked, setChecked] = useState(false)
-
+const Todo = ({ todo, deleteTodo, updateTodo }: TodoProps) => {
   const toggleCheckbox = () => {
-    setChecked(!checked)
+    const tmp: TodoType = {
+      ...todo,
+      completed: !todo.completed
+    }
+    updateTodo(tmp)
   }
 
   const handleDeleteTodo = () => {
     deleteTodo(todo.id)
+  }
+
+  const handleUpdateTodo = () => {
+    updateTodo(todo)
   }
 
   return (
@@ -28,18 +34,18 @@ const Todo = ({ todo, deleteTodo }: TodoProps) => {
       justify='space-between'
       style={{
         marginBottom: 3,
-        ...(checked ? { opacity: 0.5 } : {})
+        ...(todo.completed ? { opacity: 0.5 } : {})
       }}
     >
       <Checkbox
-        checked={checked}
+        checked={todo.completed}
         onChange={toggleCheckbox}
-        style={{ color: priorityColorMapping[todo.priority], textDecoration: checked ? 'line-through' : '' }}
+        style={{ color: priorityColorMapping[todo.priority], textDecoration: todo.completed ? 'line-through' : '' }}
       >
         {todo.name}
       </Checkbox>
       <Space.Compact className='flex gap-4 cursor-pointer'>
-        <span>Edit</span>
+        <span onClick={handleUpdateTodo}>Update</span>
         <span onClick={handleDeleteTodo}>Delete</span>
       </Space.Compact>
     </Row>

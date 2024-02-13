@@ -2,7 +2,7 @@ export interface TodoType {
   id: string
   name: string
   priority: priorityType
-  completed: false
+  completed: boolean
 }
 
 export enum priorityType {

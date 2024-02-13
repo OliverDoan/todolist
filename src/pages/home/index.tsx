@@ -22,6 +22,11 @@ const Home = () => {
     setTodoList(tmp)
   }
 
+  const updateTodo = (todo: TodoType) => {
+    const tmp = todoList.map((e) => (e.id === todo.id ? todo : e))
+    setTodoList(tmp)
+  }
+
   return (
     <div
       style={{
@@ -39,7 +44,7 @@ const Home = () => {
       <Title className='text-center'>TODO LIST</Title>
       <Filters />
       <Divider />
-      <TodoList todoList={todoList} addTodo={addTodo} deleteTodo={deleteTodo} />
+      <TodoList todoList={todoList} addTodo={addTodo} deleteTodo={deleteTodo} updateTodo={updateTodo} />
     </div>
   )
 }

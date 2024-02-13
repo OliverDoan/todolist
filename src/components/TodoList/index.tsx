@@ -11,9 +11,10 @@ interface TodoListProps {
   todoList: TodoType[]
   addTodo: (v: TodoType) => void
   deleteTodo: (id: string) => void
+  updateTodo: (todo: TodoType) => void
 }
 
-const TodoList = ({ todoList, addTodo, deleteTodo }: TodoListProps) => {
+const TodoList = ({ todoList, addTodo, deleteTodo, updateTodo }: TodoListProps) => {
   const [form] = Form.useForm()
   const handleAddTodo = (values: FieldType) => {
     if (values.text) {
@@ -31,7 +32,7 @@ const TodoList = ({ todoList, addTodo, deleteTodo }: TodoListProps) => {
     <Row style={{ height: 'calc(100% - 40px)' }}>
       <Col span={24} style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}>
         {todoList.map((d) => (
-          <Todo todo={d} key={d.id} deleteTodo={deleteTodo} />
+          <Todo todo={d} key={d.id} deleteTodo={deleteTodo} updateTodo={updateTodo} />
         ))}
       </Col>
       <Col span={24}>
