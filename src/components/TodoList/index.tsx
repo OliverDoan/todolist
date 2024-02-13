@@ -10,9 +10,10 @@ type FieldType = {
 interface TodoListProps {
   todoList: TodoType[]
   addTodo: (v: TodoType) => void
+  deleteTodo: (id: string) => void
 }
 
-const TodoList = ({ todoList, addTodo }: TodoListProps) => {
+const TodoList = ({ todoList, addTodo, deleteTodo }: TodoListProps) => {
   const [form] = Form.useForm()
   const handleAddTodo = (values: FieldType) => {
     if (values.text) {
@@ -30,7 +31,7 @@ const TodoList = ({ todoList, addTodo }: TodoListProps) => {
     <Row style={{ height: 'calc(100% - 40px)' }}>
       <Col span={24} style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}>
         {todoList.map((d) => (
-          <Todo name={d.name} priority={d.priority} key={d.id} />
+          <Todo todo={d} key={d.id} deleteTodo={deleteTodo} />
         ))}
       </Col>
       <Col span={24}>

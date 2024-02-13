@@ -1,6 +1,6 @@
 import { Checkbox, Row, Space } from 'antd'
 import { useState } from 'react'
-import { priorityType } from 'src/types'
+import { TodoType } from 'src/types'
 const priorityColorMapping: Record<string, string> = {
   High: 'red',
   Medium: 'blue',
@@ -8,15 +8,19 @@ const priorityColorMapping: Record<string, string> = {
 }
 
 interface TodoProps {
-  name: string
-  priority: priorityType
+  todo: TodoType
+  deleteTodo: (id: string) => void
 }
 
-const Todo = ({ name, priority }: TodoProps) => {
+const Todo = ({ todo, deleteTodo }: TodoProps) => {
   const [checked, setChecked] = useState(false)
 
   const toggleCheckbox = () => {
     setChecked(!checked)
+  }
+
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id)
   }
 
   return (
@@ -30,13 +34,13 @@ const Todo = ({ name, priority }: TodoProps) => {
       <Checkbox
         checked={checked}
         onChange={toggleCheckbox}
-        style={{ color: priorityColorMapping[priority], textDecoration: checked ? 'line-through' : '' }}
+        style={{ color: priorityColorMapping[todo.priority], textDecoration: checked ? 'line-through' : '' }}
       >
-        {name}
+        {todo.name}
       </Checkbox>
       <Space.Compact className='flex gap-4 cursor-pointer'>
         <span>Edit</span>
-        <span>Delete</span>
+        <span onClick={handleDeleteTodo}>Delete</span>
       </Space.Compact>
     </Row>
   )

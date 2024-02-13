@@ -17,6 +17,11 @@ const Home = () => {
     setTodoList([...todoList, newTodo])
   }
 
+  const deleteTodo = (id: string) => {
+    const tmp = todoList.filter((e) => e.id !== id)
+    setTodoList(tmp)
+  }
+
   return (
     <div
       style={{
@@ -34,7 +39,7 @@ const Home = () => {
       <Title className='text-center'>TODO LIST</Title>
       <Filters />
       <Divider />
-      <TodoList todoList={todoList} addTodo={addTodo} />
+      <TodoList todoList={todoList} addTodo={addTodo} deleteTodo={deleteTodo} />
     </div>
   )
 }
