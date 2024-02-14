@@ -10,3 +10,9 @@ export enum priorityType {
   Medium = 'Medium',
   Low = 'Low'
 }
+
+export enum statusType {
+  All = 'All',
+  Todo = 'Todo',
+  Completed = 'Completed'
+}

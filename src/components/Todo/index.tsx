@@ -46,8 +46,7 @@ const Todo = ({ todo, deleteTodo, updateTodo }: TodoProps) => {
     <Row
       justify='space-between'
       style={{
-        marginBottom: 3,
-        ...(todo.completed ? { opacity: 0.5 } : {})
+        marginBottom: 3
       }}
     >
       {isUpdating ? (
