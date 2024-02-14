@@ -8,6 +8,7 @@ const { Title } = Typography
 
 const Home = () => {
   const [todoList, setTodoList] = useState<TodoType[]>(JSON.parse(localStorage.getItem('todoList') as string) || [])
+  const [valueSearch, setValueSearch] = useState('')
 
   useEffect(() => {
     localStorage.setItem('todoList', JSON.stringify(todoList))
@@ -15,16 +16,22 @@ const Home = () => {
 
   const addTodo = (newTodo: TodoType) => {
     setTodoList([...todoList, newTodo])
+    localStorage.setItem('todoList', JSON.stringify([...todoList, newTodo]))
   }
 
   const deleteTodo = (id: string) => {
     const tmp = todoList.filter((e) => e.id !== id)
     setTodoList(tmp)
+    localStorage.setItem('todoList', JSON.stringify(tmp))
   }
 
   const updateTodo = (todo: TodoType) => {
     const tmp = todoList.map((e) => (e.id === todo.id ? todo : e))
     setTodoList(tmp)
+  }
+
+  const searchTodo = (value: string) => {
+    setValueSearch(value)
   }
 
   return (
@@ -42,9 +49,15 @@ const Home = () => {
       }}
     >
       <Title className='text-center'>TODO LIST</Title>
-      <Filters />
+      <Filters searchTodo={searchTodo} />
       <Divider />
-      <TodoList todoList={todoList} addTodo={addTodo} deleteTodo={deleteTodo} updateTodo={updateTodo} />
+      <TodoList
+        todoList={todoList}
+        addTodo={addTodo}
+        deleteTodo={deleteTodo}
+        updateTodo={updateTodo}
+        valueSearch={valueSearch}
+      />
     </div>
   )
 }

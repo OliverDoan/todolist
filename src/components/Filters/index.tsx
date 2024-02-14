@@ -1,14 +1,21 @@
 import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd'
 
 const { Search } = Input
-const Filters = () => {
+
+interface FiltersProps {
+  searchTodo: (value: string) => void
+}
+const Filters = ({ searchTodo }: FiltersProps) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    searchTodo(e.target.value)
+  }
   return (
     <Row justify='center'>
       <Col span={24}>
         <Typography.Paragraph style={{ fontWeight: 'bold', marginBottom: 3, marginTop: 10 }}>
           Search
         </Typography.Paragraph>
-        <Search placeholder='input search text' />
+        <Search placeholder='input search text' onChange={handleSearch} />
       </Col>
       <Col sm={24}>
         <Typography.Paragraph style={{ fontWeight: 'bold', marginBottom: 3, marginTop: 10 }}>
