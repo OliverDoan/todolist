@@ -2,18 +2,22 @@ import { useEffect, useState } from 'react'
 import { MdOutlineClose } from 'react-icons/md'
 import styles from '../styles/modules/modal.module.scss'
 import Button from './Button'
-import { TodoType } from 'src/@type'
+import { useDispatch } from 'react-redux'
+import { addTodo } from 'src/redux/actions'
+import { getTime } from 'src/utils/getTime'
+import { ITodo } from 'src/redux/type'
 
 interface TodoModalProps {
   type: string
   modalOpen: boolean
   setModalOpen: (v: boolean) => void
-  todo?: TodoType
+  todo?: ITodo
 }
 
 function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
   const [title, setTitle] = useState('')
   const [status, setStatus] = useState('incomplete')
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (type === 'update' && todo) {
@@ -27,6 +31,19 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (title) {
+      dispatch(
+        addTodo({
+          id: `${Math.random()}`,
+          title: title,
+          status: status,
+          time: getTime()
+        })
+      )
+      setTitle('')
+      setStatus('incomplete')
+      setModalOpen(false)
+    }
   }
 
   return (

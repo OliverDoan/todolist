@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 import { MdDelete, MdEdit } from 'react-icons/md'
-import { TodoType } from 'src/@type'
 import styles from '../styles/modules/todoItem.module.scss'
 import { getClasses } from '../utils/getClasses'
 import CheckButton from './CheckButton'
 import TodoModal from './TodoModal'
+import { ITodo } from 'src/redux/type'
+import { useDispatch } from 'react-redux'
+import { deleteTodo } from 'src/redux/actions'
 
 interface TodoItemProps {
-  todo: TodoType
+  todo: ITodo
 }
 
 function TodoItem({ todo }: TodoItemProps) {
   const [checked, setChecked] = useState(false)
   const [updateModalOpen, setUpdateModalOpen] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (todo.status === 'complete') {
@@ -26,7 +29,9 @@ function TodoItem({ todo }: TodoItemProps) {
     setChecked(!checked)
   }
 
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    dispatch(deleteTodo(todo.id))
+  }
 
   const handleUpdate = () => {
     setUpdateModalOpen(true)
@@ -38,8 +43,12 @@ function TodoItem({ todo }: TodoItemProps) {
         <div className={styles.todoDetails}>
           <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className={styles.texts}>
-            <p className={getClasses([styles.todoText, styles['todoText--completed']])}>{todo.title}</p>
-            <p className={styles.time}>{'12/12/2021'}</p>
+            <p
+              className={getClasses([styles.todoText, todo.status === 'complete' ? styles['todoText--completed'] : ''])}
+            >
+              {todo.title}
+            </p>
+            <p className={styles.time}>{todo.time}</p>
           </div>
         </div>
         <div className={styles.todoActions}>

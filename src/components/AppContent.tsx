@@ -1,9 +1,11 @@
-import { TodoType } from 'src/@type'
+import { useSelector } from 'react-redux'
+import { todoListSelector } from 'src/redux/selectors'
 import styles from '../styles/modules/app.module.scss'
 import TodoItem from './TodoItem'
+import { ITodo } from 'src/redux/type'
 
 function AppContent() {
-  const todoList: TodoType[] = [{ id: '', status: '', time: '', title: 'asdas' }]
+  const todoList: ITodo[] = useSelector(todoListSelector)
   const filterStatus = 'all'
 
   const sortedTodoList = [...todoList]
