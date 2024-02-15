@@ -1,7 +1,8 @@
 export enum ActionType {
   ADD_TODO = 'ADD_TODO',
   DELETE_TODO = 'DELETE_TODO',
-  FILTER_STATUS_TODO = 'FILTER_STATUS_TODO'
+  FILTER_STATUS_TODO = 'FILTER_STATUS_TODO',
+  UPDATE_TODO = 'UPDATE_TODO'
 }
 
 export enum Status {
@@ -16,7 +17,10 @@ export interface ITodo {
   status: Status
   time: string
 }
-
+export type TodoState = {
+  todoList: ITodo[]
+  filterStatus: Status
+}
 interface actionAddTodo {
   type: ActionType.ADD_TODO
   payload: ITodo
@@ -32,4 +36,9 @@ interface actionFilterStatusTodo {
   payload: Status
 }
 
-export type Action = actionAddTodo | actionDeleteTodo | actionFilterStatusTodo
+interface actionUpdateTodo {
+  type: ActionType.UPDATE_TODO
+  payload: ITodo
+}
+
+export type Action = actionAddTodo | actionDeleteTodo | actionFilterStatusTodo | actionUpdateTodo

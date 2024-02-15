@@ -6,7 +6,7 @@ import CheckButton from './CheckButton'
 import TodoModal from './TodoModal'
 import { ITodo, Status } from 'src/redux/type'
 import { useDispatch } from 'react-redux'
-import { deleteTodo } from 'src/redux/actions'
+import { deleteTodo, updateTodo } from 'src/redux/actions'
 
 interface TodoItemProps {
   todo: ITodo
@@ -27,6 +27,8 @@ function TodoItem({ todo }: TodoItemProps) {
 
   const handleCheck = () => {
     setChecked(!checked)
+    const tmp: ITodo = { ...todo, status: todo.status === Status.COMPLETED ? Status.INCOMPLETE : Status.COMPLETED }
+    dispatch(updateTodo(tmp))
   }
 
   const handleDelete = () => {

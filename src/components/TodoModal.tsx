@@ -3,7 +3,7 @@ import { MdOutlineClose } from 'react-icons/md'
 import styles from '../styles/modules/modal.module.scss'
 import Button from './Button'
 import { useDispatch } from 'react-redux'
-import { addTodo } from 'src/redux/actions'
+import { addTodo, updateTodo } from 'src/redux/actions'
 import { getTime } from 'src/utils/getTime'
 import { ITodo, Status } from 'src/redux/type'
 
@@ -31,7 +31,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (title) {
+    if (title && type === 'add') {
       dispatch(
         addTodo({
           id: `${Math.random()}`,
@@ -42,6 +42,11 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
       )
       setTitle('')
       setStatus(Status.INCOMPLETE)
+      setModalOpen(false)
+    }
+    if (todo && title && type === 'update') {
+      const tmp: ITodo = { ...todo, status: status, title: title }
+      dispatch(updateTodo(tmp))
       setModalOpen(false)
     }
   }

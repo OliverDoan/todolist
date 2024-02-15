@@ -20,3 +20,10 @@ export const filterStatusTodo = (status: Status) => {
     payload: status
   }
 }
+
+export const updateTodo = (data: ITodo) => {
+  return {
+    type: ActionType.UPDATE_TODO,
+    payload: data
+  }
+}

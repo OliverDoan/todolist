@@ -11,7 +11,7 @@ function AppHeader() {
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(filterStatusTodo(event.target.value))
+    dispatch(filterStatusTodo(event.target.value as Status))
   }
 
   return (

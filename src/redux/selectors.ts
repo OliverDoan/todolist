@@ -5,8 +5,7 @@
 //   return state.todoList.filter((todo) => todo.status === status)
 // }
 
-import { TodoState } from './reducer'
-import { Status } from './type'
+import { Status, TodoState } from './type'
 import { createSelector } from 'reselect'
 const filterStatusSelector = (state: TodoState) => state.filterStatus
 const todoListSelector = (state: TodoState) => state.todoList

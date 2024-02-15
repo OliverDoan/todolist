@@ -20,25 +20,34 @@
 //   }
 // }
 // export default rootReducer
+// import { combineReducers } from 'redux'
+// import filterReducer from './slices/FilterSlice'
+// import todoListReducer from './slices/TodoListSlice'
+// import { ITodo, Status, Action } from './type'
+
+// const initialState: TodoState = {
+//   todoList: [],
+//   filterStatus: Status.COMPLETED
+// }
+
+// export type TodoState = {
+//   todoList: ITodo[]
+//   filterStatus: Status
+// }
+
+// const rootReducer = (state: TodoState = initialState, action: Action): TodoState => {
+//   return {
+//     filterStatus: filterReducer(state.filterStatus, action),
+//     todoList: todoListReducer(state.todoList, action)
+//   }
+// }
+
+import { combineReducers } from 'redux'
 import filterReducer from './slices/FilterSlice'
 import todoListReducer from './slices/TodoListSlice'
-import { Action, ITodo, Status } from './type'
-
-const initialState: TodoState = {
-  todoList: [],
-  filterStatus: Status.ALL
-}
-
-export type TodoState = {
-  todoList: ITodo[]
-  filterStatus: Status
-}
-
-const rootReducer = (state: TodoState = initialState, action: Action): TodoState => {
-  return {
-    filterStatus: filterReducer(state.filterStatus, action),
-    todoList: todoListReducer(state.todoList, action)
-  }
-}
+const rootReducer = combineReducers({
+  filterStatus: filterReducer,
+  todoList: todoListReducer
+})
 
 export default rootReducer

@@ -1,6 +1,8 @@
 import { Action, ActionType, Status } from '../type'
 
-const filterReducer = (state: Status, action: Action): Status => {
+const initialState: Status = Status.ALL
+
+const filterReducer = (state: Status = initialState, action: Action): Status => {
   switch (action.type) {
     case ActionType.FILTER_STATUS_TODO:
       return action.payload
