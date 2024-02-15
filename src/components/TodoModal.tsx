@@ -5,7 +5,7 @@ import Button from './Button'
 import { useDispatch } from 'react-redux'
 import { addTodo } from 'src/redux/actions'
 import { getTime } from 'src/utils/getTime'
-import { ITodo } from 'src/redux/type'
+import { ITodo, Status } from 'src/redux/type'
 
 interface TodoModalProps {
   type: string
@@ -16,7 +16,7 @@ interface TodoModalProps {
 
 function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
   const [title, setTitle] = useState('')
-  const [status, setStatus] = useState('incomplete')
+  const [status, setStatus] = useState(Status.INCOMPLETE)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
       setStatus(todo.status)
     } else {
       setTitle('')
-      setStatus('incomplete')
+      setStatus(Status.INCOMPLETE)
     }
   }, [type, todo, modalOpen])
 
@@ -41,7 +41,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
         })
       )
       setTitle('')
-      setStatus('incomplete')
+      setStatus(Status.INCOMPLETE)
       setModalOpen(false)
     }
   }
@@ -69,9 +69,9 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
               </label>
               <label htmlFor='type'>
                 Status
-                <select id='type' value={status} onChange={(e) => setStatus(e.target.value)}>
-                  <option value='incomplete'>Incomplete</option>
-                  <option value='complete'>Completed</option>
+                <select id='type' value={status} onChange={(e) => setStatus(e.target.value as Status)}>
+                  <option value={Status.INCOMPLETE}>Incomplete</option>
+                  <option value={Status.COMPLETED}>Completed</option>
                 </select>
               </label>
               <div className={styles.buttonContainer}>

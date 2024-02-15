@@ -13,3 +13,10 @@ export const deleteTodo = (id: string) => {
     payload: id
   }
 }
+
+export const filterStatusTodo = (status: string) => {
+  return {
+    type: ActionType.FILTER_STATUS_TODO,
+    payload: status
+  }
+}

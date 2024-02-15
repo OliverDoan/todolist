@@ -2,11 +2,11 @@ import { useSelector } from 'react-redux'
 import { todoListSelector } from 'src/redux/selectors'
 import styles from '../styles/modules/app.module.scss'
 import TodoItem from './TodoItem'
-import { ITodo } from 'src/redux/type'
+import { ITodo, Status } from 'src/redux/type'
 
 function AppContent() {
   const todoList: ITodo[] = useSelector(todoListSelector)
-  const filterStatus = 'all'
+  const filterStatus = Status.ALL
 
   const sortedTodoList = [...todoList]
   sortedTodoList.sort((a, b) => {
@@ -17,7 +17,7 @@ function AppContent() {
   })
 
   const filteredTodoList = sortedTodoList.filter((item) => {
-    if (filterStatus === 'all') {
+    if (filterStatus === Status.ALL) {
       return true
     }
     return item.status === filterStatus

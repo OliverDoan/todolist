@@ -1,11 +1,13 @@
-import { Action, ActionType, ITodo } from './type'
+import { Action, ActionType, ITodo, Status } from './type'
 
 export type TodoState = {
   todoList: ITodo[]
+  filterStatus: Status
 }
 
 const initialState: TodoState = {
-  todoList: []
+  todoList: [],
+  filterStatus: Status.ALL
 }
 
 const rootReducer = (state: TodoState = initialState, action: Action): TodoState => {
@@ -15,10 +17,17 @@ const rootReducer = (state: TodoState = initialState, action: Action): TodoState
         ...state,
         todoList: [...state.todoList, action.payload]
       }
+
     case ActionType.DELETE_TODO:
       return {
         ...state,
         todoList: state.todoList.filter((todo) => todo.id !== action.payload)
+      }
+
+    case ActionType.FILTER_STATUS_TODO:
+      return {
+        ...state,
+        filterStatus: action.payload
       }
 
     default:

@@ -4,7 +4,7 @@ import styles from '../styles/modules/todoItem.module.scss'
 import { getClasses } from '../utils/getClasses'
 import CheckButton from './CheckButton'
 import TodoModal from './TodoModal'
-import { ITodo } from 'src/redux/type'
+import { ITodo, Status } from 'src/redux/type'
 import { useDispatch } from 'react-redux'
 import { deleteTodo } from 'src/redux/actions'
 
@@ -18,7 +18,7 @@ function TodoItem({ todo }: TodoItemProps) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (todo.status === 'complete') {
+    if (todo.status === Status.COMPLETED) {
       setChecked(true)
     } else {
       setChecked(false)
@@ -44,7 +44,10 @@ function TodoItem({ todo }: TodoItemProps) {
           <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className={styles.texts}>
             <p
-              className={getClasses([styles.todoText, todo.status === 'complete' ? styles['todoText--completed'] : ''])}
+              className={getClasses([
+                styles.todoText,
+                todo.status === Status.COMPLETED ? styles['todoText--completed'] : ''
+              ])}
             >
               {todo.title}
             </p>

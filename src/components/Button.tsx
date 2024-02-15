@@ -10,19 +10,21 @@ interface ButtonProps {
   type?: 'submit' | 'button'
   variant?: keyof typeof buttonTypes
   children: React.ReactNode
-  onClick?: () => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
 }
 
 interface SelectButtonProps {
   id: string
   children: React.ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
 }
-function Button({ type, variant = 'primary', children, onClick, ...rest }: ButtonProps) {
+function Button({ type, variant = 'primary', children, ...rest }: ButtonProps) {
   return (
     <button
       type={type === 'submit' ? 'submit' : 'button'}
       className={getClasses([styles.button, styles[`button--${buttonTypes[variant]}`]])}
-      onClick={onClick}
       {...rest}
     >
       {children}
