@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux'
-import { todoListSelector } from 'src/redux/selectors'
 import styles from '../styles/modules/app.module.scss'
 import TodoItem from './TodoItem'
 import { ITodo, Status } from 'src/redux/type'
+import { todosRemainingSelector } from 'src/redux/selectors'
 
 function AppContent() {
-  const todoList: ITodo[] = useSelector(todoListSelector)
+  const todoList: ITodo[] = useSelector(todosRemainingSelector)
   const filterStatus = Status.ALL
 
   const sortedTodoList = [...todoList]

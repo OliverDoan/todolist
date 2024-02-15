@@ -1,4 +1,4 @@
-import { ActionType, ITodo } from './type'
+import { ActionType, ITodo, Status } from './type'
 
 export const addTodo = (data: ITodo) => {
   return {
@@ -14,7 +14,7 @@ export const deleteTodo = (id: string) => {
   }
 }
 
-export const filterStatusTodo = (status: string) => {
+export const filterStatusTodo = (status: Status) => {
   return {
     type: ActionType.FILTER_STATUS_TODO,
     payload: status
