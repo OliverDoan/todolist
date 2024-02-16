@@ -5,23 +5,13 @@ import AppContent from 'src/components/AppContent'
 
 const Home = () => {
   return (
-    <>
-      <div className='container'>
-        <PageTitle>TODO List</PageTitle>
-        <div className={styles.app__wrapper}>
-          <AppHeader />
-          <AppContent />
-        </div>
+    <div className='container'>
+      <PageTitle>TODO List</PageTitle>
+      <div className={styles.app__wrapper}>
+        <AppHeader />
+        <AppContent />
       </div>
-      {/* <Toaster
-        position='bottom-right'
-        toastOptions={{
-          style: {
-            fontSize: '1.4rem'
-          }
-        }}
-      /> */}
-    </>
+    </div>
   )
 }
 

@@ -1,10 +1,3 @@
-// export const filterListSelector = (state: TodoState) => state.filterStatus
-// export const todoListSelector = (state: TodoState) => {
-//   const status = filterListSelector(state)
-//   if (status === Status.ALL) return state.todoList
-//   return state.todoList.filter((todo) => todo.status === status)
-// }
-
 import { Status, TodoState } from './type'
 import { createSelector } from 'reselect'
 const filterStatusSelector = (state: TodoState) => state.filterStatus
