@@ -3,9 +3,9 @@ import { MdOutlineClose } from 'react-icons/md'
 import styles from '../styles/modules/modal.module.scss'
 import Button from './Button'
 import { useDispatch } from 'react-redux'
-import { addTodo, updateTodo } from 'src/redux/actions'
 import { getTime } from 'src/utils/getTime'
 import { ITodo, Status } from 'src/redux/type'
+import { todoListSlice } from 'src/redux/slices/todoListSlice'
 
 interface TodoModalProps {
   type: string
@@ -33,7 +33,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
     e.preventDefault()
     if (title && type === 'add') {
       dispatch(
-        addTodo({
+        todoListSlice.actions.addTodo({
           id: `${Math.random()}`,
           title: title,
           status: status,
@@ -46,7 +46,7 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }: TodoModalProps) {
     }
     if (todo && title && type === 'update') {
       const tmp: ITodo = { ...todo, status: status, title: title }
-      dispatch(updateTodo(tmp))
+      dispatch(todoListSlice.actions.updateTodo(tmp))
       setModalOpen(false)
     }
   }

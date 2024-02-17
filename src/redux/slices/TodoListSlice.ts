@@ -1,25 +1,24 @@
-import { Action, ActionType, ITodo } from '../type'
+import { createSlice } from '@reduxjs/toolkit'
+import { ITodo } from '../type'
+type initialStateType = ITodo[]
 
-const initialState: ITodo[] = []
-
-const todoListReducer = (state: ITodo[] = initialState, action: Action): ITodo[] => {
-  switch (action.type) {
-    case ActionType.ADD_TODO:
+const initialState: initialStateType = []
+export const todoListSlice = createSlice({
+  name: 'todoList',
+  initialState,
+  reducers: {
+    addTodo: (state, action) => {
       return [...state, action.payload]
-
-    case ActionType.DELETE_TODO:
+      // state.push(action.payload)
+    },
+    deleteTodo: (state, action) => {
       return state.filter((todo) => todo.id !== action.payload)
-
-    case ActionType.UPDATE_TODO:
+      // state.splice(action.payload, 1)
+    },
+    updateTodo: (state, action) => {
       return state.map((todo) =>
-        todo.id === action.payload.id
-          ? ({ ...todo, status: action.payload.status, title: action.payload.title } as ITodo)
-          : todo
+        todo.id === action.payload.id ? { ...todo, status: action.payload.status, title: action.payload.title } : todo
       )
-
-    default:
-      return state
+    }
   }
-}
-
-export default todoListReducer
+})

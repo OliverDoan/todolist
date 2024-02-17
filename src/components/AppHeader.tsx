@@ -1,17 +1,17 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { filterStatusSlice } from 'src/redux/slices/filterStatusSlice'
+import { Status } from 'src/redux/type'
 import styles from '../styles/modules/app.module.scss'
 import Button, { SelectButton } from './Button'
 import TodoModal from './TodoModal'
-import { useDispatch } from 'react-redux'
-import { filterStatusTodo } from 'src/redux/actions'
-import { Status } from 'src/redux/type'
 
 function AppHeader() {
   const dispatch = useDispatch()
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(filterStatusTodo(event.target.value as Status))
+    dispatch(filterStatusSlice.actions.filterStatusTodo(event.target.value as Status))
   }
 
   return (
