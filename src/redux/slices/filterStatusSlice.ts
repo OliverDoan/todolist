@@ -9,7 +9,7 @@ export const filterStatusSlice = createSlice({
   name: 'filterStatus',
   initialState,
   reducers: {
-    filterStatusTodo: (state, action) => {
+    filterStatusTodo: (_state, action) => {
       return action.payload
     }
   }
